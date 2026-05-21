@@ -1,0 +1,91 @@
+// celebration.js - modul oslavy pre Pokémon PWA
+// Verzia: 1.0 (otestované 21.5.2026)
+// Použitie: playCelebration('Peter', 'Gen1')
+
+function playCelebration(meno, generacia) {
+  // 1. Vytvor overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'celebration-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;';
+  document.body.appendChild(overlay);
+
+  const text = document.createElement('div');
+  text.style.cssText = 'color:white;font-size:2.5rem;font-weight:bold;text-align:center;padding:20px;font-family:system-ui;';
+  text.textContent = `Výborne ${meno}!`;
+  overlay.appendChild(text);
+
+  // 2. Canvas pre ohňostroj
+  const canvas = document.createElement('canvas');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  canvas.style.cssText = 'position:absolute;inset:0;';
+  overlay.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  
+  // 3. Fanfára (z Fanfáry.html)
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audioCtx = new AudioContext();
+  const now = audioCtx.currentTime;
+  const masterGain = audioCtx.createGain();
+  masterGain.gain.setValueAtTime(0.95, now);
+  masterGain.connect(audioCtx.destination);
+  const filter = audioCtx.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.setValueAtTime(4000, now);
+  filter.connect(masterGain);
+
+  const melody = [
+    {s:0, d:0.2, f:261.63}, {s:0.2, d:0.2, f:392}, {s:0.4, d:0.2, f:523.25},
+    {s:0.6, d:0.4, f:659.25}, {s:1.0, d:0.2, f:523.25}, {s:1.2, d:0.2, f:659.25},
+    {s:1.4, d:1.6, f:523.25}, {s:1.4, d:1.6, f:659.25}, {s:1.4, d:1.6, f:783.99}, {s:1.4, d:1.6, f:1046.5}
+  ];
+
+  melody.forEach(n => {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(n.f, now + n.s);
+    const vib = audioCtx.createOscillator();
+    const vibGain = audioCtx.createGain();
+    vib.frequency.setValueAtTime(6, now + n.s);
+    vibGain.gain.setValueAtTime(3, now + n.s);
+    vib.connect(vibGain); vibGain.connect(osc.frequency);
+    vib.start(now + n.s); vib.stop(now + n.s + n.d);
+    gain.gain.setValueAtTime(0, now + n.s);
+    gain.gain.linearRampToValueAtTime(0.35, now + n.s + 0.04);
+    gain.gain.setValueAtTime(0.35, now + n.s + n.d - 0.1);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + n.s + n.d);
+    osc.connect(gain); gain.connect(filter);
+    osc.start(now + n.s); osc.stop(now + n.s + n.d);
+  });
+
+  // 4. Jednoduchý ohňostroj
+  let particles = [];
+  function explode(x,y) {
+    for(let i=0;i<80;i++){
+      particles.push({x,y,vx:(Math.random()-0.5)*8,vy:(Math.random()-0.5)*8,life:100,color:`hsl(${Math.random()*360},100%,60%)`});
+    }
+  }
+  let fireworkTimer = setInterval(()=>explode(Math.random()*canvas.width, Math.random()*canvas.height*0.6), 600);
+  
+  function animate(){
+    ctx.fillStyle='rgba(0,0,0,0.2)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+    particles = particles.filter(p=>p.life>0);
+    particles.forEach(p=>{p.x+=p.vx; p.y+=p.vy; p.vy+=0.05; p.life--; ctx.fillStyle=p.color; ctx.fillRect(p.x,p.y,3,3);});
+    if(overlay.isConnected) requestAnimationFrame(animate);
+  }
+  animate();
+
+  // 5. Hlas po fanfáre
+  setTimeout(()=>{
+    const utter = new SpeechSynthesisUtterance(`Výborne ${meno}. Vyslobodil si všetkých pokémonov z generácie ${generacia}.`);
+    utter.lang = 'sk-SK';
+    utter.onend = ()=> setTimeout(()=>overlay.remove(), 1000);
+    speechSynthesis.speak(utter);
+    text.textContent = `Výborne ${meno}!
+Vyslobodil si všetkých pokémonov z generácie ${generacia}.`;
+  }, 3200);
+
+  // 6. Poistka zatvorenia
+  setTimeout(()=>{clearInterval(fireworkTimer); overlay.remove();}, 12000);
+}

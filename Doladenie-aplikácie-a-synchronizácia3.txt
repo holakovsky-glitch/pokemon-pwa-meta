@@ -1,0 +1,14 @@
+INFO VERZIA 8.73
+---------------
+Dátum: 21.5.2026
+Hlavný súbor: index-8.73-pin-visible.html
+Stav: stabilná verzia po oprave synchronizácie
+
+Súbory v repozitári:
+- profil-peter.txt (osobné pravidlá)
+- profil-projekt.txt (technický stav)
+- celebration.js (hotový modul oslavy)
+- test-oslava-final.html (test)
+- pokracovanie-pre-Meta.txt (štart pre nové vlákno)
+
+Ďalší krok: verzia 8.74 = vrátiť 3 stratené funkcie + vložiť oslavu

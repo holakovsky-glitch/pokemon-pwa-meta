@@ -1,0 +1,14 @@
+POKRAČOVANIE PRE META AI - NOVÉ VLÁKNO
+========================================
+Načítaj tieto súbory z GitHubu v poradí:
+1. profil-peter.txt
+2. profil-projekt.txt
+3. celebration.js
+
+Peter je 77-ročný veterinár, nie programátor - vysvetľuj jednoducho.
+
+Aktuálna úloha: vytvoriť verziu 8.74 založenú na 8.73, pridať:
+- zobrazenie (vyslobodených)/(v generácii)/(chýb)
+- tlačidlo Zmeniť PIN
+- oprava Galérie
+- integrácia celebration.js
