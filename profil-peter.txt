@@ -1,0 +1,7 @@
+Meno: Peter
+Vek: 77 rokov
+Povolanie: veterinár na dôchodku
+Skúsenosti s IT: žiadne, nie som programátor
+Požiadavka: Vysvetľuj mi všetko ako laikovi. Žiadny žargón. 
+Krok za krokom. Čo kliknúť, kam napísať.
+Projekt: Výučbová PWA appka "Vysloboď pokémonov" pre vnúčatá

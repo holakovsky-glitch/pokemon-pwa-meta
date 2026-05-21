@@ -1,0 +1,7 @@
+Verzia 8.73-pin-visible
+Opravy:
+1. Firebase snapshot.exists - použitá vlastnosť, nie funkcia()
+2. PIN viditeľný v rodičovskej kontrole pri mene dieťaťa
+3. APP_VERSION zmenená na 8.73-pin-visible
+
+Čo ešte chýba: Kategórie, Témy, Testy - vráti 8.74

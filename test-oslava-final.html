@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test Oslavy</title></head>
+<body style="text-align:center;padding-top:100px;font-family:sans-serif;">
+  <h1>Test fanfár</h1>
+  <button onclick="test()" style="font-size:20px;padding:15px 30px;">Spusti oslavu</button>
+  <script type="module">
+    import {spustOslavu} from './celebration.js';
+    window.test = ()=> spustOslavu('Peter');
+  </script>
+</body>
+</html>

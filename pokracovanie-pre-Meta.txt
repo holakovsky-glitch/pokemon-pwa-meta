@@ -1,0 +1,11 @@
+Ahoj Meta. Som Peter, 77r, veterinár. Pokračujeme v projekte PWA.
+
+Aktuálna verzia na GitHube: 8.73-pin-visible
+Repozitár: https://github.com/TVOJE-MENO/pokemon-pwa-meta
+
+Úloha pre 8.74:
+1. Vrátiť stratené funkcie: Kategórie slov, Témy pozadia, Testy
+2. Vložiť oslavu level-up z celebration.js
+3. Testovať bokom v test-oslava-final.html
+
+Všetky súbory máš v repozitári. Pracuj len s nimi.

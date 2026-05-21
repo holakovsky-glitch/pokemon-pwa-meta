@@ -1,0 +1,7 @@
+Názov: Vysloboď pokémonov - Edu PWA
+Aktuálna verzia: 8.73-pin-visible
+Stav: Stabilná, opravená synchronizácia Firebase
+Stratené funkcie v 8.73: Kategórie slov, Témy pozadia, Testy
+Plán 8.74: Vrátiť 3 funkcie + pridať oslavu level-up
+Dátové súbory: gen1_sk.js až gen9_sk.js, vybrane_slova.js
+Hosting: GitHub Pages
